@@ -1,14 +1,14 @@
 # 🧠 KnowledgeHub AI — Assistente Corporativo de Conhecimento
 
-[!\[Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU\_USUARIO/knowledgehub-ai)
-!\[Apache 2.0 License](https://img.shields.io/badge/License-Apache\_2.0-blue.svg)
-!\[Python 3.12](https://img.shields.io/badge/Python-3.12-green.svg)
-!\[FastAPI](https://img.shields.io/badge/FastAPI-Production-009688.svg)
-!\[Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B.svg)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU_USUARIO/knowledgehub-ai)
+![Apache 2.0 License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
+![Python 3.12](https://img.shields.io/badge/Python-3.12-green.svg)
+![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688.svg)
+![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B.svg)
 
-> \\\*\\\*Plataforma open-source de inteligência documental corporativa baseada em RAG (Retrieval-Augmented Generation), projetada para consulta em linguagem natural com rastreabilidade total de evidências.\\\*\\\*
+> **Plataforma open-source de inteligência documental corporativa baseada em RAG (Retrieval-Augmented Generation), projetada para consulta em linguagem natural com rastreabilidade total de evidências.**
 
-\---
+---
 
 ## 📌 Visão Geral do Projeto
 
@@ -16,216 +16,161 @@ O **KnowledgeHub AI** foi desenvolvido para resolver o desafio corporativo de lo
 
 Diferente de sistemas convencionais de chat sobre PDFs, o KnowledgeHub AI prioriza a **rastreabilidade e a transparência**: toda resposta gerada apresenta as **fontes exatas**, indicando o nome do documento original, o número da página e o trecho de evidência utilizado.
 
-\---
+---
 
 ## 🏗️ Arquitetura da Solução
 
-O sistema adota o padrão de **Monólito Modular (Modular Monolith)**, executado localmente via Docker Compose (PostgreSQL) e scripts Python. A arquitetura foi concebida sem frameworks de abstração "caixa-preta" (sem LangChain ou LlamaIndex), garantindo total visibilidade de cada etapa do pipeline RAG.
+O sistema adota o padrão de **Monólito Modular (Modular Monolith)**, executado localmente via Docker Compose (PostgreSQL) e scripts Python. A arquitetura foi concebida sem frameworks de abstração "caixa-preta" (sem LangChain ou LlamaIndex), garantindo total visibilidade e controle sobre cada etapa do pipeline RAG.
 
+```mermaid
 flowchart TD
+    classDef userStyle fill:#4A90E2,stroke:#1C5296,stroke-width:2px,color:#fff,font-weight:bold
+    classDef apiStyle fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff,font-weight:bold
+    classDef moduleStyle fill:#FFF3E0,stroke:#E65100,stroke-width:1px,color:#000
+    classDef dataStyle fill:#E1F5FE,stroke:#0288D1,stroke-width:1px,color:#000
+    classDef llmStyle fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff,font-weight:bold
 
-&#x20;   %% Estilos e Cores para legibilidade
+    USER[👤 Usuário / Colaborador] ::: userStyle
 
-&#x20;   classDef userStyle fill:#4A90E2,stroke:#1C5296,stroke-width:2px,color:#fff,font-weight:bold
+    subgraph APP ["🏢 Ambiente Local (Python / Docker)"]
+        direction TB
+        FRONT[🖥️ Frontend Web — Streamlit]
+        API[⚡ Backend REST API — FastAPI] ::: apiStyle
+        
+        subgraph MODULES ["⚙️ Módulos de Negócio (Backend)"]
+            direction LR
+            DOC[📁 Gestão Documental] ::: moduleStyle
+            ING[⚙️ Ingestão & Chunking] ::: moduleStyle
+            RAG[🧠 Motor RAG] ::: moduleStyle
+            CHAT[💬 Chat & Histórico] ::: moduleStyle
+        end
+        
+        subgraph STORAGE ["💾 Persistência & Embeddings"]
+            direction LR
+            PG[(🗄️ PostgreSQL\nLogs & Auditoria)] ::: dataStyle
+            CH[(🔍 ChromaDB\nBanco Vetorial)] ::: dataStyle
+            FS[(📄 Filesystem\nPDFs Originais)] ::: dataStyle
+            EMB[🔤 Embeddings\nmultilingual-e5-large] ::: dataStyle
+        end
+    end
 
-&#x20;   classDef apiStyle fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff,font-weight:bold
+    LLM[🤖 Google Gemini API\nProvedor LLM] ::: llmStyle
 
-&#x20;   classDef moduleStyle fill:#FFF3E0,stroke:#E65100,stroke-width:1px,color:#000
+    USER <--> FRONT
+    FRONT <--> API
+    API --> MODULES
 
-&#x20;   classDef dataStyle fill:#E1F5FE,stroke:#0288D1,stroke-width:1px,color:#000
+    ING --> FS
+    ING --> EMB
+    ING --> CH
 
-&#x20;   classDef llmStyle fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff,font-weight:bold
+    RAG --> CH
+    RAG --> LLM
 
+    CHAT --> PG
+    CHAT --> RAG
+```
 
-
-&#x20;   USER\[👤 Usuário / Colaborador] ::: userStyle
-
-
-
-&#x20;   subgraph APP \["🏢 Ambiente Local (Python / Docker)"]
-
-&#x20;       direction TB
-
-&#x20;       FRONT\[🖥️ Frontend Web — Streamlit]
-
-&#x20;       API\[⚡ Backend REST API — FastAPI] ::: apiStyle
-
-&#x20;       
-
-&#x20;       subgraph MODULES \["⚙️ Módulos de Negócio (Backend)"]
-
-&#x20;           direction LR
-
-&#x20;           DOC\[📁 Gestão Documental] ::: moduleStyle
-
-&#x20;           ING\[⚙️ Ingestão \& Chunking] ::: moduleStyle
-
-&#x20;           RAG\[🧠 Motor RAG] ::: moduleStyle
-
-&#x20;           CHAT\[💬 Chat \& Histórico] ::: moduleStyle
-
-&#x20;       end
-
-&#x20;       
-
-&#x20;       subgraph STORAGE \["💾 Persistência \& Embeddings"]
-
-&#x20;           direction LR
-
-&#x20;           PG\[(🗄️ PostgreSQL\\nLogs \& Auditoria)] ::: dataStyle
-
-&#x20;           CH\[(🔍 ChromaDB\\nBanco Vetorial)] ::: dataStyle
-
-&#x20;           FS\[(📄 Filesystem\\nPDFs Originais)] ::: dataStyle
-
-&#x20;           EMB\[🔤 Embeddings\\nmultilingual-e5-large] ::: dataStyle
-
-&#x20;       end
-
-&#x20;   end
-
-
-
-&#x20;   LLM\[🤖 Google Gemini API\\nProvedor LLM] ::: llmStyle
-
-
-
-&#x20;   %% Conexões
-
-&#x20;   USER <--> FRONT
-
-&#x20;   FRONT <--> API
-
-&#x20;   API --> MODULES
-
-
-
-&#x20;   ING --> FS
-
-&#x20;   ING --> EMB
-
-&#x20;   ING --> CH
-
-
-
-&#x20;   RAG --> CH
-
-&#x20;   RAG --> LLM
-
-
-
-&#x20;   CHAT --> PG
-
-&#x20;   CHAT --> RAG
-
-
+---
 
 ## 🛠️ Stack Tecnológica
 
-|Camada|Tecnologia|Função no Sistema|
-|-|-|-|
-|**Backend \& API**|Python 3.12 + FastAPI|API RESTful assíncrona responsável pela orquestração do pipeline RAG.|
-|**Frontend Web**|Streamlit|Interface interativa de chat com painel de métricas e suporte a $Top-K$.|
-|**Banco Vetorial**|ChromaDB (Local/Embedded)|Armazenamento persistente de embeddings e busca por similaridade de cosseno.|
-|**Embeddings**|`intfloat/multilingual-e5-large`|Modelo aberto de 1024 dimensões executado 100% localmente via PyTorch.|
-|**Provedor LLM**|Google Gemini API|Geração de respostas sintetizadas fundamentadas no contexto fornecido.|
-|**Banco Relacional**|PostgreSQL 16|Auditoria assíncrona e registro de logs de consultas.|
-|**Processamento PDF**|PyMuPDF (`fitz`)|Extração estruturada de texto com rastreabilidade por número de página.|
+| Camada | Tecnologia | Função no Sistema |
+| :--- | :--- | :--- |
+| **Backend & API** | Python 3.12 + FastAPI | API RESTful assíncrona responsável pela orquestração do pipeline RAG. |
+| **Frontend Web** | Streamlit | Interface interativa de chat com painel de métricas e suporte a $Top-K$. |
+| **Banco Vetorial** | ChromaDB (Local/Embedded) | Armazenamento persistente de embeddings e busca por similaridade de cosseno. |
+| **Embeddings** | `intfloat/multilingual-e5-large` | Modelo aberto de 1024 dimensões executado 100% localmente via PyTorch. |
+| **Provedor LLM** | Google Gemini API | Geração de respostas sintetizadas fundamentadas no contexto fornecido. |
+| **Banco Relacional** | PostgreSQL 16 | Auditoria assíncrona e registro de logs de consultas. |
+| **Processamento PDF** | PyMuPDF (`fitz`) | Extração estruturada de texto com rastreabilidade por número de página. |
 
-\---
+---
 
 ## ☁️ Execução Instantânea via GitHub Codespaces
 
 Para experimentar o projeto imediatamente sem a necessidade de instalar Python, Docker ou dependências na sua máquina local, utilize o **GitHub Codespaces**:
 
-[!\[Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU\_USUARIO/knowledgehub-ai)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU_USUARIO/knowledgehub-ai)
 
 1. Clique no botão acima para instanciar o ambiente virtual em nuvem.
 2. O ambiente configurará automaticamente o contêiner Python 3.12 e instalará os pacotes de `requirements.txt`.
-3. Defina sua variável `GEMINI\\\_API\\\_KEY` no terminal ou arquivo `.env`.
+3. Defina sua variável `GEMINI_API_KEY` no terminal ou arquivo `.env`.
 4. As portas **8000** (API FastAPI) e **8501** (Interface Streamlit) serão abertas automaticamente para acesso no navegador.
 
-\---
+---
 
 ## 🗺️ Guia Sequencial de Construção por Fases (`GUIDES/`)
 
-Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo de construção do KnowledgeHub AI do zero, cada etapa do MVP foi documentada em detalhes na pasta `GUIDES/`:
+Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo de construção do KnowledgeHub AI, cada etapa do MVP foi documentada em detalhes na pasta `GUIDES/`:
 
-|Fase|Descrição da Etapa|Documento de Guia Passo a Passo|Status|
-|:-:|-|-|:-:|
-|**01**|Setup do Ambiente, Infraestrutura \& Backend|📜 [**PROJECT.md**](GUIDES/PROJECT.md) \& ⚙️ [**TECHNOLOGY\_STACK.md**](GUIDES/TECHNOLOGY_STACK.md)|🟢 Concluída|
-|**02**|Ingestão, Extração de PDFs \& Chunking|📑 [**DOCUMENT\_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md)|🟢 Concluída|
-|**03**|Embeddings Locais \& Motor de Recuperação|🔍 [**Fase 3 — Motor de Recuperação**](GUIDES/Fase%203%20—%20Motor%20de%20Recuperação%20%28Retrieval%29.txt)|🟢 Concluída|
-|**04**|Pipeline RAG \& Integração LLM Gemini|🤖 [**Geração RAG com Google Gemini**](GUIDES/Geração%20RAG%20com%20Google%20Gemini.md)|🟢 Concluída|
-|**05**|Exposição via FastAPI Production-Grade|⚡ [**Resumo de Execução - Fase 5: FastAPI**](GUIDES/PHASE_5_FastAPI.md)|🟢 Concluída|
-|**06 \& 07**|Interface Web (Streamlit) \& Validação E2E|🖥️ [**Fase 6 \& 7 — Interface Web e Validação E2E**](GUIDES/PHASE%206_7.MD)|🟢 Concluída|
+| Fase | Descrição da Etapa | Documento de Guia Passo a Passo | Status |
+| :---: | :--- | :--- | :---: |
+| **01** | Setup do Ambiente, Infraestrutura & Backend | 📜 [**PROJECT.md**](GUIDES/PROJECT.md) & ⚙️ [**TECHNOLOGY_STACK.md**](GUIDES/TECHNOLOGY_STACK.md) | 🟢 Concluída |
+| **02** | Ingestão, Extração de PDFs & Chunking | 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) | 🟢 Concluída |
+| **03** | Embeddings Locais & Motor de Recuperação | 🔍 [**Fase 3 — Motor de Recuperação**](GUIDES/PHASE-3-RETRIEVAL.md) | 🟢 Concluída |
+| **04** | Pipeline RAG & Integração LLM Gemini | 🤖 [**Geração RAG com Google Gemini**](GUIDES/Geração%20RAG%20com%20Google%20Gemini.md) | 🟢 Concluída |
+| **05** | Exposição via FastAPI Production-Grade | ⚡ [**Resumo de Execução - Fase 5: FastAPI**](GUIDES/PHASE_5_FastAPI.md) | 🟢 Concluída |
+| **06 & 07** | Interface Web (Streamlit) & Validação E2E | 🖥️ [**Fase 6 & 7 — Interface Web e Validação E2E**](GUIDES/PHASE%206_7.MD) | 🟢 Concluída |
 
-\---
+---
 
 ## 🚀 Como Executar Localmente (Quick Start)
 
-### 1\. Pré-requisitos
-
+### 1. Pré-requisitos
 * Python 3.11 ou 3.12 instalado.
 * Docker Desktop ativo (para o PostgreSQL).
-* Chave de API do Google Gemini (`GEMINI\\\_API\\\_KEY`).
+* Chave de API do Google Gemini (`GEMINI_API_KEY`).
 
-### 2\. Clonar o Repositório e Configurar o Ambiente Virtual
-
+### 2. Clonar o Repositório e Configurar o Ambiente Virtual
 ```powershell
-git clone https://github.com/SEU\\\_USUARIO/knowledgehub-ai.git
+git clone https://github.com/SEU_USUARIO/knowledgehub-ai.git
 cd knowledgehub-ai
 
 # Criar e ativar o ambiente virtual (Windows PowerShell)
 python -m venv venv
-.\\\\venv\\\\Scripts\\\\Activate.ps1
+.\venv\Scripts\Activate.ps1
 
 # Instalar dependências
 pip install -r backend/requirements.txt
 ```
 
-### 3\. Configurar Variáveis de Ambiente
-
+### 3. Configurar Variáveis de Ambiente
 Crie um arquivo `.env` na raiz do projeto a partir do modelo `.env.example`:
-
 ```env
-GEMINI\\\_API\\\_KEY=sua\\\_chave\\\_api\\\_aqui
-DATABASE\\\_URL=postgresql://postgres:postgres@localhost:5432/knowledgehub
+GEMINI_API_KEY=sua_chave_api_aqui
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/knowledgehub
 ```
 
-### 4\. Inicializar Serviços (Ordem Recomendada)
+### 4. Inicializar Serviços (Ordem Recomendada)
 
 Execute os seguintes comandos em terminais distintos:
 
 * **Terminal 1 — Banco de Dados (PostgreSQL):**
-
-```powershell
+  ```powershell
   docker compose up -d
   ```
 
 * **Terminal 2 — Processamento de Ingestão (Popular ChromaDB com os PDFs de `Docs/`):**
-
-```powershell
+  ```powershell
   cd backend
   python ingest.py
   ```
 
 * **Terminal 3 — Servidor API Backend (FastAPI):**
-
-```powershell
+  ```powershell
   cd backend
   uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
   ```
 
 * **Terminal 4 — Interface Web (Streamlit):**
-
-```powershell
+  ```powershell
   streamlit run frontend/app.py
   ```
 
 Acesse a interface no seu navegador em: **`http://localhost:8501`**
 
-\---
+---
 
 ## 🔮 Próximos Passos (Roadmap de Evolução)
 
@@ -236,31 +181,27 @@ Com a primeira fase do MVP totalmente finalizada e validada, o projeto conta com
 3. **Avaliação Quantitativa RAG (RAG Metrics):** Integração de ferramentas como **Ragas** ou **TruLens** para medição automatizada de fidelidade (*faithfulness*), relevância (*answer relevance*) e precisão do contexto.
 4. **Ingestão Multiformato:** Expansão da pipeline de processamento para documentos `.docx` (Word), `.pptx` (PowerPoint) e tabelas `.xlsx` (Excel).
 
-\---
+---
 
 ## 📚 Documentação Técnica Completa (`GUIDES/`)
 
 * 📜 [**PROJECT.md**](GUIDES/PROJECT.md) — Visão do produto, problema de negócio e cenário corporativo fictício.
 * 🏛️ [**ARCHITECTURE.md**](GUIDES/ARCHITECTURE.md) — Especificação arquitetural do Monólito Modular e diagramas de fluxo.
-* ⚙️ [**TECHNOLOGY\_STACK.md**](GUIDES/TECHNOLOGY_STACK.md) — Decisões e justificativas técnicas detalhadas da stack.
+* ⚙️ [**TECHNOLOGY_STACK.md**](GUIDES/TECHNOLOGY_STACK.md) — Decisões e justificativas técnicas detalhadas da stack.
 * 📊 [**PROGRESS.md**](GUIDES/PROGRESS.md) — Matriz de acompanhamento de progresso e histórico das entregas.
-* 📑 [**DOCUMENT\_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) — Guia de capacidade e expansão da ingestão multiformato.
-* 🚀 [**Guia de Execução \& Troubleshooting**](GUIDES/Guia%20de%20Execução%20&%20Troubleshooting%20—%20KnowledgeHub%20AI.md) — Resolução detalhada de erros comuns de execução.
+* 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) — Guia de capacidade e expansão da ingestão multiformato.
+* 🚀 [**Guia de Execução & Troubleshooting**](GUIDES/Guia%20de%20Execução%20%26%20Troubleshooting%20—%20KnowledgeHub%20AI.md) — Resolução detalhada de erros comuns de execução.
 
-\---
+---
 
-## 👨‍💻 Autor \& Desenvolvimento
+## 👨‍💻 Autor & Desenvolvimento
 
-Este projeto foi concebido, arquitetado e desenvolvido de forma autônoma por **Elon de Farias Pereira** como uma solução prática de engenharia para inteligência documental e aplicação de RAG corporativo.
+O **KnowledgeHub AI** foi concebido e implementado por **Elon de Farias Pereira**, com foco em engenharia de software aplicada, clareza arquitetural e domínio sobre o pipeline RAG.
 
-A construção seguiu deliberadamente o princípio de **código aberto e sem frameworks de abstração de alto nível**, permitindo o controle exato sobre chunking, vetorização, prompt grounding e rastreabilidade de evidências.
+A solução prioriza o controle explícito sobre todas as etapas do fluxo RAG (chunking, vetorização, prompt grounding e rastreabilidade de evidências), evitando dependências de frameworks de alta abstração.
 
-[!\[LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]https://www.linkedin.com/in/elonfarias/
-[!\[GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)]https://github.com/Elfarias
-
-\---
+---
 
 ## 📄 Licença
 
 Este projeto é disponibilizado sob a licença [Apache License 2.0](LICENSE).
-
