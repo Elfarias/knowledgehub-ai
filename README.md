@@ -22,50 +22,103 @@ Diferente de sistemas convencionais de chat sobre PDFs, o KnowledgeHub AI priori
 
 O sistema adota o padrão de **Monólito Modular (Modular Monolith)**, executado localmente via Docker Compose (PostgreSQL) e scripts Python. A arquitetura foi concebida sem frameworks de abstração "caixa-preta" (sem LangChain ou LlamaIndex), garantindo total visibilidade de cada etapa do pipeline RAG.
 
-```mermaid
-flowchart TB
-    USER\\\[Usuário / Colaborador]
+flowchart TD
 
-    subgraph LOCAL\\\["Ambiente Local (Python / Docker Compose)"]
-        FRONT\\\[Frontend Web<br/>Streamlit]
-        API\\\[Backend REST API<br/>FastAPI]
+&#x20;   %% Estilos e Cores para legibilidade
 
-        subgraph MODULES\\\["Módulos Internos do Backend"]
-            DOC\\\[Gestão Documental]
-            ING\\\[Ingestão \\\& Chunking]
-            RAG\\\[Motor RAG]
-            CHAT\\\[Chat \\\& Histórico]
-        end
+&#x20;   classDef userStyle fill:#4A90E2,stroke:#1C5296,stroke-width:2px,color:#fff,font-weight:bold
 
-        PG\\\[(PostgreSQL<br/>Logs \\\& Auditoria)]
-        CH\\\[(ChromaDB<br/>Banco Vetorial)]
-        FS\\\[(Filesystem / Docs<br/>Documentos PDF)]
+&#x20;   classDef apiStyle fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff,font-weight:bold
 
-        EMB\\\[Modelo de Embeddings<br/>multilingual-e5-large]
-    end
+&#x20;   classDef moduleStyle fill:#FFF3E0,stroke:#E65100,stroke-width:1px,color:#000
 
-    LLM\\\[Google Gemini API<br/>LLM Externa]
+&#x20;   classDef dataStyle fill:#E1F5FE,stroke:#0288D1,stroke-width:1px,color:#000
 
-    USER --> FRONT
-    FRONT <-->|HTTP REST| API
-    API --> MODULES
+&#x20;   classDef llmStyle fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff,font-weight:bold
 
-    DOC --> PG
-    DOC --> FS
 
-    ING --> FS
-    ING --> EMB
-    ING --> CH
 
-    RAG --> EMB
-    RAG --> CH
-    RAG --> LLM
+&#x20;   USER\[👤 Usuário / Colaborador] ::: userStyle
 
-    CHAT --> PG
-    CHAT --> RAG
-```
 
-\---
+
+&#x20;   subgraph APP \["🏢 Ambiente Local (Python / Docker)"]
+
+&#x20;       direction TB
+
+&#x20;       FRONT\[🖥️ Frontend Web — Streamlit]
+
+&#x20;       API\[⚡ Backend REST API — FastAPI] ::: apiStyle
+
+&#x20;       
+
+&#x20;       subgraph MODULES \["⚙️ Módulos de Negócio (Backend)"]
+
+&#x20;           direction LR
+
+&#x20;           DOC\[📁 Gestão Documental] ::: moduleStyle
+
+&#x20;           ING\[⚙️ Ingestão \& Chunking] ::: moduleStyle
+
+&#x20;           RAG\[🧠 Motor RAG] ::: moduleStyle
+
+&#x20;           CHAT\[💬 Chat \& Histórico] ::: moduleStyle
+
+&#x20;       end
+
+&#x20;       
+
+&#x20;       subgraph STORAGE \["💾 Persistência \& Embeddings"]
+
+&#x20;           direction LR
+
+&#x20;           PG\[(🗄️ PostgreSQL\\nLogs \& Auditoria)] ::: dataStyle
+
+&#x20;           CH\[(🔍 ChromaDB\\nBanco Vetorial)] ::: dataStyle
+
+&#x20;           FS\[(📄 Filesystem\\nPDFs Originais)] ::: dataStyle
+
+&#x20;           EMB\[🔤 Embeddings\\nmultilingual-e5-large] ::: dataStyle
+
+&#x20;       end
+
+&#x20;   end
+
+
+
+&#x20;   LLM\[🤖 Google Gemini API\\nProvedor LLM] ::: llmStyle
+
+
+
+&#x20;   %% Conexões
+
+&#x20;   USER <--> FRONT
+
+&#x20;   FRONT <--> API
+
+&#x20;   API --> MODULES
+
+
+
+&#x20;   ING --> FS
+
+&#x20;   ING --> EMB
+
+&#x20;   ING --> CH
+
+
+
+&#x20;   RAG --> CH
+
+&#x20;   RAG --> LLM
+
+
+
+&#x20;   CHAT --> PG
+
+&#x20;   CHAT --> RAG
+
+
 
 ## 🛠️ Stack Tecnológica
 
