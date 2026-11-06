@@ -4,8 +4,6 @@
 
 O **KnowledgeHub AI** foi projetado sob uma arquitetura de monólito modular simples e expansível. No estado atual (MVP), o pipeline RAG utiliza um fluxo de extração, limpeza, fatiamento (*chunking*), geração de embeddings e indexação vetorial no **ChromaDB**.
 
----
-
 ## 2. Capacidades Atuais vs. Expansíveis
 
 ### 2.1 Formato Suportado Nativamente no MVP (Nativo)
@@ -15,8 +13,6 @@ O **KnowledgeHub AI** foi projetado sob uma arquitetura de monólito modular sim
 | **PDFs Textuais** | `.pdf` | `PyMuPDF` (`fitz`) / `pypdf` | Lê páginas nativas de texto, preserva a numeração de páginas como metadados e fatias em chunks pesquisáveis. |
 
 > **Nota:** PDFs que consistem exclusivamente em digitalizações (imagens digitalizadas sem camada de texto) necessitam de uma etapa de OCR para extração de conteúdo.
-
----
 
 ### 2.2 Formatos Prontos para Expansão (Requer Adição de Extrator)
 
@@ -33,8 +29,6 @@ Abaixo estão os tipos de documentos adicionais e as bibliotecas necessárias pa
 | **Texto/Código** | `.txt`, `.md`, `.json` | Python nativo (`open`) | Lê diretamente o conteúdo e faz chunking por parágrafos ou seções de código. |
 | **E-mails** | `.eml`, `.msg` | `extract_msg`, `email` | Extrai cabeçalhos (remetente, assunto, data) e o corpo do e-mail como texto. |
 | **Áudio/Vídeo** | `.mp3`, `.wav`, `.mp4` | `openai-whisper` (local) | Transcreve a fala em texto legível para posteriormente ser indexada no banco vetorial. |
-
----
 
 ## 3. Procedimento para Ingestão dos PDFs Atuais
 
@@ -59,8 +53,6 @@ O script irá automaticamente:
 3. Gerar os vetores de embedding usando o modelo local `intfloat/multilingual-e5-large`.
 4. Armazenar/atualizar no **ChromaDB** mantendo os caminhos absolutos corretos.
 
----
-
 ## 4. Guia Passo a Passo para Adicionar Novos Formatos no `ingest.py`
 
 Para permitir que o KnowledgeHub AI processe PPTs, Excels, Word ou Imagens, siga esta estrutura de expansão no script `backend/ingest.py`:
@@ -72,58 +64,56 @@ import os
 import chromadb
 from sentence_transformers import SentenceTransformer
 from pypdf import PdfReader
-from pptx import Presentation          # pip install python-pptx
-import pandas as pd                    # pip install pandas openpyxl
-from docx import Document              # pip install python-docx
+from pptx import Presentation # pip install python-pptx
+import pandas as pd # pip install pandas openpyxl
+from docx import Document # pip install python-docx
 
 def extract_pdf(file_path):
-    reader = PdfReader(file_path)
-    chunks = []
-    for page_num, page in enumerate(reader.pages, 1):
-        text = page.extract_text() or ""
-        if text.strip():
-            chunks.append({"page": page_num, "text": " ".join(text.split())})
-    return chunks
+reader = PdfReader(file_path)
+chunks = []
+for page_num, page in enumerate(reader.pages, 1):
+text = page.extract_text() or ""
+if text.strip():
+chunks.append({"page": page_num, "text": " ".join(text.split())})
+return chunks
 
 def extract_pptx(file_path):
-    prs = Presentation(file_path)
-    chunks = []
-    for slide_num, slide in enumerate(prs.slides, 1):
-        slide_text = []
-        for shape in slide.shapes:
-            if shape.has_text_frame:
-                slide_text.append(shape.text_frame.text)
-        text = " ".join(slide_text)
-        if text.strip():
-            chunks.append({"page": slide_num, "text": " ".join(text.split())})
-    return chunks
+prs = Presentation(file_path)
+chunks = []
+for slide_num, slide in enumerate(prs.slides, 1):
+slide_text = []
+for shape in slide.shapes:
+if shape.has_text_frame:
+slide_text.append(shape.text_frame.text)
+text = " ".join(slide_text)
+if text.strip():
+chunks.append({"page": slide_num, "text": " ".join(text.split())})
+return chunks
 
 def extract_docx(file_path):
-    doc = Document(file_path)
-    full_text = [p.text for p in doc.paragraphs if p.text.strip()]
-    text = " ".join(full_text)
-    return [{"page": 1, "text": text}]
+doc = Document(file_path)
+full_text = [p.text for p in doc.paragraphs if p.text.strip()]
+text = " ".join(full_text)
+return [{"page": 1, "text": text}]
 
 def extract_excel(file_path):
-    df_dict = pd.read_excel(file_path, sheet_name=None)
-    chunks = []
-    for sheet_name, df in df_dict.items():
-        # Converte a planilha em formato tabular inteligível para LLMs
-        text = df.to_string(index=False)
-        if text.strip():
-            chunks.append({"page": f"Aba: {sheet_name}", "text": text})
-    return chunks
+df_dict = pd.read_excel(file_path, sheet_name=None)
+chunks = []
+for sheet_name, df in df_dict.items():
+# Converte a planilha em formato tabular inteligível para LLMs
+text = df.to_string(index=False)
+if text.strip():
+chunks.append({"page": f"Aba: {sheet_name}", "text": text})
+return chunks
 
 # Mapeamento de extensões para manipuladores
 EXTRACTORS = {
-    ".pdf": extract_pdf,
-    ".pptx": extract_pptx,
-    ".docx": extract_docx,
-    ".xlsx": extract_excel,
+".pdf": extract_pdf,
+".pptx": extract_pptx,
+".docx": extract_docx,
+".xlsx": extract_excel,
 }
 ```
-
----
 
 ## 5. Resumo das Recomendações
 

@@ -2,13 +2,11 @@
 
 ## 1. Visão Geral
 
-Este documento define como cada entrega do **KnowledgeHub AI** deve ser testada e validada antes de ser considerada concluída. 
+Este documento define como cada entrega do **KnowledgeHub AI** deve ser testada e validada antes de ser considerada concluída.
 
 A validação no projeto possui dois pilares fundamentais:
 1. **Validação Técnica (Integridade & Qualidade):** Garantir que o código funciona, não consome recursos excessivos e passa pelos testes automatizados.
 2. **Validação de Negócio (Rastreabilidade & Acurácia):** Garantir que as respostas da LLM estejam fundamentadas em evidências reais extraídas dos documentos, sem alucinações.
-
----
 
 ## 2. Critérios de Aceite por Fase (Quality Gates)
 
@@ -50,8 +48,6 @@ Para avançar no `IMPLEMENTATION-PLAN.md`, a entrega da fase atual precisa cumpr
 - [ ] Componente **Cartão de Evidência** permitindo expandir e inspecionar o trecho exato do PDF, a página e a fonte.
 - [ ] Linter ESLint e testes de componente Vitest executando sem erros.
 
----
-
 ## 3. Roteiro de Testes Manuais com Perguntas de Demonstração
 
 Para validar a qualidade da acurácia e da rastreabilidade do RAG na empresa fictícia (ABC Indústria e Serviços Ltda.), utilizaremos a seguinte suíte de testes manuais:
@@ -65,8 +61,6 @@ Para validar a qualidade da acurácia e da rastreabilidade do RAG na empresa fic
 | **T05** | Como registrar uma não conformidade? | Qualidade | Manual da qualidade + formulário ou instrução de registro. |
 | **T06** | Qual é o torque especificado na etapa 3 da montagem? | Produção | Instrução de trabalho técnica da produção + valor exato do torque. |
 | **T07** | Qual é a política da empresa sobre viagem a Marte? | *Nenhum (Teste de Ausência)* | O sistema deve informar claramente: *"Informação não encontrada nos documentos disponíveis."* |
-
----
 
 ## 4. Comandos para Execução dos Testes Automatizados
 
@@ -90,8 +84,6 @@ npm run lint
 # Executar testes de componentes
 npm run test
 ```
-
----
 
 ## 5. Protocolo de Aprovação
 

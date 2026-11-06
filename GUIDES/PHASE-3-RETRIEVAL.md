@@ -1,4 +1,4 @@
-# 📚 Guia Prático: Fase 3 — Motor de Recuperação e Consulta (Retrieval)
+# Guia Prático: Fase 3 — Motor de Recuperação e Consulta (Retrieval)
 
 Este documento detalha o passo a passo executado para construir e validar o mecanismo de busca semântica por similaridade de vetores no **KnowledgeHub AI**.
 
@@ -28,8 +28,8 @@ Durante a execução em ambiente de desenvolvimento local, o cliente do ChromaDB
 from chromadb.config import Settings
 
 self.client = chromadb.PersistentClient(
-    path=str(self.persist_directory),
-    settings=Settings(anonymized_telemetry=False)
+path=str(self.persist_directory),
+settings=Settings(anonymized_telemetry=False)
 )
 ```
 
@@ -40,7 +40,7 @@ Abaixo está o código atualizado do módulo gerenciador com o método `query_si
 ```python
 """
 Gerenciador do Banco Vetorial ChromaDB.
-Responsável por carregar o modelo de embeddings local, criar a coleção 
+Responsável por carregar o modelo de embeddings local, criar a coleção
 e persistir os chunks com seus metadados de rastreabilidade.
 """
 
@@ -50,47 +50,46 @@ import chromadb
 from chromadb.config import Settings
 from sentence_transformers import SentenceTransformer
 
-
 class ChromaManager:
-    def __init__(
-        self, 
-        persist_directory: str = "data/chroma_db", 
-        collection_name: str = "knowledgehub_docs",
-        model_name: str = "intfloat/multilingual-e5-large"
-    ):
-        self.persist_directory = Path(persist_directory)
-        self.collection_name = collection_name
-        
-        # Inicializa o cliente persistente desativando telemetria anônima
-        self.client = chromadb.PersistentClient(
-            path=str(self.persist_directory),
-            settings=Settings(anonymized_telemetry=False)
-        )
-        
-        # Carrega o modelo de embeddings local (CPU)
-        print(f"🔄 Carregando modelo de embeddings '{model_name}'...")
-        self.embedding_model = SentenceTransformer(model_name)
-        
-        # Obtém ou cria a coleção
-        self.collection = self.client.get_or_create_collection(
-            name=self.collection_name,
-            metadata={"description": "KnowledgeHub AI Corporate Documents Collection"}
-        )
-        print(f"✅ Conectado à coleção ChromaDB: '{self.collection_name}'")
+def __init__(
+self,
+persist_directory: str = "data/chroma_db",
+collection_name: str = "knowledgehub_docs",
+model_name: str = "intfloat/multilingual-e5-large"
+):
+self.persist_directory = Path(persist_directory)
+self.collection_name = collection_name
 
-    def query_similarity(self, query_text: str, n_results: int = 3) -> Dict[str, Any]:
-        """
-        Realiza uma busca semântica por similaridade no banco vetorial,
-        retornando os trechos mais relevantes e suas evidências (metadados).
-        """
-        # Aplicação do prefixo 'query:' conforme boas práticas do modelo e5
-        query_embedding = self.embedding_model.encode([f"query: {query_text}"]).tolist()
+# Inicializa o cliente persistente desativando telemetria anônima
+self.client = chromadb.PersistentClient(
+path=str(self.persist_directory),
+settings=Settings(anonymized_telemetry=False)
+)
 
-        results = self.collection.query(
-            query_embeddings=query_embedding,
-            n_results=n_results
-        )
-        return results
+# Carrega o modelo de embeddings local (CPU)
+print(f"🔄 Carregando modelo de embeddings '{model_name}'...")
+self.embedding_model = SentenceTransformer(model_name)
+
+# Obtém ou cria a coleção
+self.collection = self.client.get_or_create_collection(
+name=self.collection_name,
+metadata={"description": "KnowledgeHub AI Corporate Documents Collection"}
+)
+print(f"✅ Conectado à coleção ChromaDB: '{self.collection_name}'")
+
+def query_similarity(self, query_text: str, n_results: int = 3) -> Dict[str, Any]:
+"""
+Realiza uma busca semântica por similaridade no banco vetorial,
+retornando os trechos mais relevantes e suas evidências (metadados).
+"""
+# Aplicação do prefixo 'query:' conforme boas práticas do modelo e5
+query_embedding = self.embedding_model.encode([f"query: {query_text}"]).tolist()
+
+results = self.collection.query(
+query_embeddings=query_embedding,
+n_results=n_results
+)
+return results
 ```
 
 ## 4. Script de Teste da Recuperação (`scripts/test_search.py`)
@@ -111,40 +110,38 @@ sys.path.append(str(Path(__file__).resolve().parent.parent / "backend"))
 
 from app.vectorstore.chroma_manager import ChromaManager
 
-
 def main():
-    print("🔄 Inicializando conexão com o ChromaDB para testes de busca...")
-    chroma_mgr = ChromaManager()
+print("🔄 Inicializando conexão com o ChromaDB para testes de busca...")
+chroma_mgr = ChromaManager()
 
-    query_text = "Quais são as diretrizes de segurança da informação?"
-    
-    print(f"\n🔍 Realizando busca semântica para a query:\n   ➡️ \"{query_text}\"\n")
+query_text = "Quais são as diretrizes de segurança da informação?"
 
-    results = chroma_mgr.query_similarity(query_text, n_results=3)
+print(f"\n🔍 Realizando busca semântica para a query:\n ➡️ \"{query_text}\"\n")
 
-    documents = results.get("documents", [[]])[0]
-    metadatas = results.get("metadatas", [[]])[0]
-    distances = results.get("distances", [[]])[0]
+results = chroma_mgr.query_similarity(query_text, n_results=3)
 
-    if not documents:
-        print("⚠️ Nenhum resultado encontrado para a busca.")
-        return
+documents = results.get("documents", [[]])[0]
+metadatas = results.get("metadatas", [[]])[0]
+distances = results.get("distances", [[]])[0]
 
-    print(f"📊 {len(documents)} resultados mais relevantes encontrados:\n")
-    print("=" * 70)
+if not documents:
+print("⚠️ Nenhum resultado encontrado para a busca.")
+return
 
-    for i, (doc, meta, dist) in enumerate(zip(documents, metadatas, distances), start=1):
-        print(f"[{i}] Relevância/Distância: {dist:.4f}")
-        print(f"    📄 Fonte: {meta.get('source')}")
-        print(f"    📖 Página: {meta.get('page')}")
-        print(f"    🆔 Chunk ID: {meta.get('file_path', 'N/A')}")
-        print(f"    💬 Trecho recuperado:")
-        print(f"    \"{doc}\"")
-        print("-" * 70)
+print(f"📊 {len(documents)} resultados mais relevantes encontrados:\n")
+print("=" * 70)
 
+for i, (doc, meta, dist) in enumerate(zip(documents, metadatas, distances), start=1):
+print(f"[{i}] Relevância/Distância: {dist:.4f}")
+print(f" 📄 Fonte: {meta.get('source')}")
+print(f" 📖 Página: {meta.get('page')}")
+print(f" 🆔 Chunk ID: {meta.get('file_path', 'N/A')}")
+print(f" 💬 Trecho recuperado:")
+print(f" \"{doc}\"")
+print("-" * 70)
 
 if __name__ == "__main__":
-    main()
+main()
 ```
 
 ## 5. Resultados de Validação

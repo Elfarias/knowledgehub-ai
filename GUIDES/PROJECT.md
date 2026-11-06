@@ -1,16 +1,10 @@
-\# PROJECT.md
+# PROJECT.md
 
+# KnowledgeHub AI
 
+### Assistente Corporativo de Conhecimento
 
-\# KnowledgeHub AI
-
-\### Assistente Corporativo de Conhecimento
-
-
-
-\*\*Open-source enterprise document intelligence platform powered by RAG.\*\*
-
-
+**Open-source enterprise document intelligence platform powered by RAG.**
 
 | Informação | Definição |
 
@@ -32,153 +26,97 @@
 
 | LLM | Serviço externo, inicialmente Google Gemini |
 
-
-
-\---
-
-
-
-\## 1. Visão do Projeto
-
-
+## 1. Visão do Projeto
 
 O KnowledgeHub AI é uma plataforma de inteligência documental corporativa que utiliza técnicas de Retrieval-Augmented Generation (RAG) para permitir que colaboradores consultem documentos empresariais utilizando linguagem natural.
 
-
-
 O sistema transforma documentos corporativos em uma base de conhecimento pesquisável, permitindo localizar informações, compreender políticas e consultar procedimentos sem precisar procurar manualmente em diversos arquivos.
-
-
 
 O objetivo não é construir apenas um chatbot que responde perguntas sobre PDFs, mas uma aplicação que permita recuperar informações corporativas com rastreabilidade e evidências documentais.
 
-
-
 Toda resposta deverá, sempre que possível, apresentar:
 
+- Resposta em linguagem natural.
 
+- Documento utilizado como fonte.
 
-\- Resposta em linguagem natural.
+- Página de origem.
 
-\- Documento utilizado como fonte.
+- Trecho que sustenta a resposta.
 
-\- Página de origem.
+- Versão e data do documento.
 
-\- Trecho que sustenta a resposta.
-
-\- Versão e data do documento.
-
-
-
-\## 2. Problema de Negócio
-
-
+## 2. Problema de Negócio
 
 Empresas possuem documentos distribuídos entre departamentos, áreas e diferentes responsáveis.
 
-
-
 Quando um colaborador precisa encontrar uma informação, frequentemente enfrenta dificuldades para:
 
+- Identificar qual documento contém a informação.
 
+- Encontrar a informação dentro de documentos extensos.
 
-\- Identificar qual documento contém a informação.
+- Identificar a versão correta de um documento.
 
-\- Encontrar a informação dentro de documentos extensos.
+- Localizar a página onde a informação está registrada.
 
-\- Identificar a versão correta de um documento.
-
-\- Localizar a página onde a informação está registrada.
-
-\- Diferenciar informações oficiais de interpretações pessoais.
-
-
+- Diferenciar informações oficiais de interpretações pessoais.
 
 O KnowledgeHub AI busca resolver esse problema por meio de uma interface de consulta inteligente, conectada a uma base documental corporativa.
 
+## 3. Objetivos
 
-
-\## 3. Objetivos
-
-
-
-\### 3.1 Objetivo principal
-
-
+### 3.1 Objetivo principal
 
 Construir uma plataforma funcional de consulta inteligente a documentos corporativos, utilizando arquitetura RAG, com respostas fundamentadas em fontes documentais.
 
-
-
-\### 3.2 Objetivos de aprendizagem
-
-
+### 3.2 Objetivos de aprendizagem
 
 O projeto também possui finalidade educacional e de desenvolvimento técnico.
 
-
-
 Durante sua construção, deverão ser explorados:
 
+- Conceitos e arquitetura de RAG.
 
+- Extração e processamento de documentos.
 
-\- Conceitos e arquitetura de RAG.
+- Técnicas de chunking.
 
-\- Extração e processamento de documentos.
+- Modelos de embeddings.
 
-\- Técnicas de chunking.
+- Banco de dados vetorial.
 
-\- Modelos de embeddings.
+- Busca semântica.
 
-\- Banco de dados vetorial.
+- Recuperação de contexto.
 
-\- Busca semântica.
+- Integração com LLM.
 
-\- Recuperação de contexto.
+- Engenharia de prompts.
 
-\- Integração com LLM.
+- Construção de APIs.
 
-\- Engenharia de prompts.
+- Integração entre frontend e backend.
 
-\- Construção de APIs.
+- Persistência de dados.
 
-\- Integração entre frontend e backend.
+- Containerização com Docker.
 
-\- Persistência de dados.
+- Versionamento e documentação no GitHub.
 
-\- Containerização com Docker.
-
-\- Versionamento e documentação no GitHub.
-
-
-
-\### 3.3 Objetivo de portfólio
-
-
+### 3.3 Objetivo de portfólio
 
 Demonstrar capacidade de projetar, construir, executar, testar e documentar uma aplicação de inteligência artificial aplicada a um problema empresarial realista.
 
-
-
 O GitHub deverá apresentar não apenas o código, mas também a arquitetura, as decisões técnicas, os experimentos e os resultados obtidos.
 
-
-
-\## 4. Cenário de Demonstração
-
-
+## 4. Cenário de Demonstração
 
 A plataforma será demonstrada utilizando uma empresa fictícia.
 
-
-
-\*\*ABC Indústria e Serviços Ltda\*\*
-
-
+**ABC Indústria e Serviços Ltda**
 
 Departamentos:
-
-
 
 | Código | Departamento |
 
@@ -198,381 +136,259 @@ Departamentos:
 
 | JUR | Jurídico |
 
-
-
-\### 4.1 Base documental
-
-
+### 4.1 Base documental
 
 A base de conhecimento será composta por aproximadamente 30 documentos corporativos, predominantemente em formato PDF.
 
-
-
 Os documentos representam políticas, manuais, procedimentos, instruções de trabalho e controles internos.
-
-
 
 Os arquivos já foram preparados e estão armazenados localmente.
 
-
-
 Localização atual:
 
-
-
-`C:\\Users\\Elon\\Documents\\Projeto\_RAG\\Documentação`
-
-
+`C:\\Users\\Elon\\Documents\\Projeto_RAG\\Documentação`
 
 Essa pasta representa a fonte documental original utilizada nos experimentos do projeto.
 
-
-
 Os documentos deverão ser organizados por departamento durante a preparação da ingestão.
-
-
 
 Os arquivos originais deverão ser preservados.
 
+## 5. Funcionalidades do MVP
 
+### 5.1 Gestão documental
 
-\## 5. Funcionalidades do MVP
+- Disponibilizar documentos para ingestão.
 
+- Extrair texto dos arquivos PDF.
 
+- Identificar páginas e metadados.
 
-\### 5.1 Gestão documental
+- Processar e dividir documentos em chunks.
 
+- Gerar embeddings.
 
+- Indexar conteúdo no banco vetorial.
 
-\- Disponibilizar documentos para ingestão.
+### 5.2 Consulta inteligente
 
-\- Extrair texto dos arquivos PDF.
+- Permitir perguntas em linguagem natural.
 
-\- Identificar páginas e metadados.
+- Gerar embeddings da pergunta.
 
-\- Processar e dividir documentos em chunks.
+- Recuperar trechos relevantes.
 
-\- Gerar embeddings.
+- Construir contexto para a LLM.
 
-\- Indexar conteúdo no banco vetorial.
+- Gerar respostas fundamentadas nos documentos.
 
-
-
-\### 5.2 Consulta inteligente
-
-
-
-\- Permitir perguntas em linguagem natural.
-
-\- Gerar embeddings da pergunta.
-
-\- Recuperar trechos relevantes.
-
-\- Construir contexto para a LLM.
-
-\- Gerar respostas fundamentadas nos documentos.
-
-
-
-\### 5.3 Evidências e rastreabilidade
-
-
+### 5.3 Evidências e rastreabilidade
 
 Cada resposta deverá apresentar:
 
+- Documento de origem.
 
+- Página correspondente.
 
-\- Documento de origem.
+- Trecho utilizado como evidência.
 
-\- Página correspondente.
-
-\- Trecho utilizado como evidência.
-
-\- Identificação da versão documental, quando disponível.
-
-
+- Identificação da versão documental, quando disponível.
 
 O sistema deverá evitar apresentar informações como fatos quando não houver evidências suficientes na base documental.
 
+### 5.4 Interface
 
+- Interface de chat.
 
-\### 5.4 Interface
+- Visualização das respostas.
 
+- Exibição das fontes.
 
+- Identificação dos documentos.
 
-\- Interface de chat.
+- Histórico de consultas.
 
-\- Visualização das respostas.
+- Dashboard básico de utilização.
 
-\- Exibição das fontes.
+## 6. Escopo e Limites
 
-\- Identificação dos documentos.
+### Incluído no MVP
 
-\- Histórico de consultas.
+- Processamento de documentos PDF.
 
-\- Dashboard básico de utilização.
+- Extração de texto.
 
+- Chunking.
 
+- Embeddings locais.
 
-\## 6. Escopo e Limites
+- ChromaDB.
 
+- Busca vetorial.
 
+- Integração com LLM externa.
 
-\### Incluído no MVP
+- Chat corporativo.
 
+- Respostas com fontes e evidências.
 
+- Interface web.
 
-\- Processamento de documentos PDF.
+- PostgreSQL.
 
-\- Extração de texto.
+- Execução local com Docker Compose.
 
-\- Chunking.
+### Fora do escopo inicial
 
-\- Embeddings locais.
+- Arquitetura de microserviços.
 
-\- ChromaDB.
+- Kubernetes.
 
-\- Busca vetorial.
+- Multiempresa.
 
-\- Integração com LLM externa.
+- Integração com SharePoint.
 
-\- Chat corporativo.
+- Integração com Google Drive.
 
-\- Respostas com fontes e evidências.
+- OCR avançado.
 
-\- Interface web.
+- Workflow de aprovação documental.
 
-\- PostgreSQL.
+- Single Sign-On.
 
-\- Execução local com Docker Compose.
+- Infraestrutura em nuvem para execução da aplicação.
 
-
-
-\### Fora do escopo inicial
-
-
-
-\- Arquitetura de microserviços.
-
-\- Kubernetes.
-
-\- Multiempresa.
-
-\- Integração com SharePoint.
-
-\- Integração com Google Drive.
-
-\- OCR avançado.
-
-\- Workflow de aprovação documental.
-
-\- Single Sign-On.
-
-\- Infraestrutura em nuvem para execução da aplicação.
-
-\- Alta disponibilidade e escalabilidade distribuída.
-
-
+- Alta disponibilidade e escalabilidade distribuída.
 
 Essas funcionalidades poderão ser avaliadas em versões futuras.
 
-
-
-\## 7. Arquitetura Tecnológica
-
-
+## 7. Arquitetura Tecnológica
 
 O projeto utilizará uma arquitetura de monólito modular, mantendo frontend, backend, processamento RAG e integrações organizados em componentes independentes.
 
+### Frontend
 
+- Next.js
 
-\### Frontend
+- React
 
+- TypeScript
 
+- Tailwind CSS
 
-\- Next.js
-
-\- React
-
-\- TypeScript
-
-\- Tailwind CSS
-
-\- shadcn/ui
-
-
+- shadcn/ui
 
 Responsabilidade: interface de interação com o usuário.
 
+### Backend
 
+- Python 3.12
 
-\### Backend
+- FastAPI
 
+- SQLAlchemy
 
+- Alembic
 
-\- Python 3.12
-
-\- FastAPI
-
-\- SQLAlchemy
-
-\- Alembic
-
-\- Pydantic
-
-
+- Pydantic
 
 Responsabilidade: API, regras de negócio, processamento documental e orquestração RAG.
 
+### Persistência
 
-
-\### Persistência
-
-
-
-\*\*PostgreSQL\*\*
-
-
+**PostgreSQL**
 
 Armazenará:
 
+- Usuários.
 
+- Departamentos.
 
-\- Usuários.
+- Metadados documentais.
 
-\- Departamentos.
+- Histórico de consultas.
 
-\- Metadados documentais.
+- Informações de controle e auditoria.
 
-\- Histórico de consultas.
-
-\- Informações de controle e auditoria.
-
-
-
-\*\*ChromaDB\*\*
-
-
+**ChromaDB**
 
 Armazenará:
 
+- Embeddings.
 
+- Vetores.
 
-\- Embeddings.
+- Identificadores dos chunks.
 
-\- Vetores.
+- Metadados associados aos conteúdos indexados.
 
-\- Identificadores dos chunks.
+### Processamento documental
 
-\- Metadados associados aos conteúdos indexados.
+- PyMuPDF: extração de conteúdo PDF.
 
+- Python: processamento e preparação dos textos.
 
+- Chunking: divisão do conteúdo em unidades pesquisáveis.
 
-\### Processamento documental
-
-
-
-\- PyMuPDF: extração de conteúdo PDF.
-
-\- Python: processamento e preparação dos textos.
-
-\- Chunking: divisão do conteúdo em unidades pesquisáveis.
-
-
-
-\### Embeddings
-
-
+### Embeddings
 
 Modelo inicial:
 
-
-
 `intfloat/multilingual-e5-large`
-
-
 
 O modelo será executado localmente, evitando dependência de serviços externos para geração dos embeddings.
 
-
-
-\### LLM
-
-
+### LLM
 
 A geração de respostas será realizada por um serviço externo.
 
-
-
 Provedor inicial:
-
-
 
 Google Gemini.
 
-
-
 A integração deverá permitir substituir futuramente o provedor de LLM sem modificar toda a aplicação.
 
+### Infraestrutura
 
+- Docker.
 
-\### Infraestrutura
+- Docker Compose.
 
+- Git.
 
+- GitHub.
 
-\- Docker.
-
-\- Docker Compose.
-
-\- Git.
-
-\- GitHub.
-
-\- GitHub Actions.
-
-
+- GitHub Actions.
 
 Todos os componentes da aplicação deverão executar localmente, com exceção do serviço externo de LLM.
 
-
-
-\## 8. Princípios do Projeto
-
-
+## 8. Princípios do Projeto
 
 As seguintes diretrizes deverão orientar todas as decisões técnicas:
 
+1\. **Simplicidade:** implementar somente o necessário para atingir os objetivos.
 
+2\. **Aprendizado:** priorizar a compreensão dos conceitos, não apenas a entrega de código.
 
-1\. \*\*Simplicidade:\*\* implementar somente o necessário para atingir os objetivos.
+3\. **Open Source:** priorizar tecnologias e ferramentas de código aberto.
 
-2\. \*\*Aprendizado:\*\* priorizar a compreensão dos conceitos, não apenas a entrega de código.
+4\. **Execução local:** evitar dependências de infraestrutura em nuvem.
 
-3\. \*\*Open Source:\*\* priorizar tecnologias e ferramentas de código aberto.
+5\. **Modularidade:** manter responsabilidades separadas sem criar complexidade desnecessária.
 
-4\. \*\*Execução local:\*\* evitar dependências de infraestrutura em nuvem.
+6\. **Rastreabilidade:** respostas devem apresentar evidências documentais.
 
-5\. \*\*Modularidade:\*\* manter responsabilidades separadas sem criar complexidade desnecessária.
+7\. **Documentação:** decisões e implementações relevantes devem ser registradas.
 
-6\. \*\*Rastreabilidade:\*\* respostas devem apresentar evidências documentais.
+8\. **Evolução incremental:** implementar, testar e validar uma etapa antes de avançar.
 
-7\. \*\*Documentação:\*\* decisões e implementações relevantes devem ser registradas.
+9\. **Controle de escopo:** novas funcionalidades devem ser avaliadas antes de incorporadas.
 
-8\. \*\*Evolução incremental:\*\* implementar, testar e validar uma etapa antes de avançar.
+10\. **Reprodutibilidade:** o ambiente deve poder ser reconstruído seguindo a documentação.
 
-9\. \*\*Controle de escopo:\*\* novas funcionalidades devem ser avaliadas antes de incorporadas.
-
-10\. \*\*Reprodutibilidade:\*\* o ambiente deve poder ser reconstruído seguindo a documentação.
-
-
-
-\## 9. Evolução do Produto
-
-
+## 9. Evolução do Produto
 
 O desenvolvimento será realizado incrementalmente.
-
-
 
 | Etapa | Objetivo |
 
@@ -588,41 +404,29 @@ O desenvolvimento será realizado incrementalmente.
 
 | Sprint 5 | Frontend, dashboard e histórico |
 
-
-
-\### Evoluções futuras
-
-
+### Evoluções futuras
 
 Após a implementação do MVP, poderão ser avaliados:
 
+- Busca híbrida (vetorial + BM25).
 
+- Filtros por departamento.
 
-\- Busca híbrida (vetorial + BM25).
+- Controle de acesso.
 
-\- Filtros por departamento.
+- Versionamento documental.
 
-\- Controle de acesso.
+- Reindexação de documentos.
 
-\- Versionamento documental.
+- Avaliação de qualidade das respostas.
 
-\- Reindexação de documentos.
+- Métricas de recuperação e relevância.
 
-\- Avaliação de qualidade das respostas.
+- Monitoramento de desempenho.
 
-\- Métricas de recuperação e relevância.
-
-\- Monitoramento de desempenho.
-
-
-
-\## 10. Critérios de Sucesso
-
-
+## 10. Critérios de Sucesso
 
 O MVP será considerado funcional quando:
-
-
 
 1\. Os documentos PDF puderem ser processados automaticamente.
 
@@ -642,57 +446,38 @@ O MVP será considerado funcional quando:
 
 9\. O processo puder ser reproduzido a partir da documentação do GitHub.
 
-
-
-\## 11. Diretrizes de Desenvolvimento
-
-
+## 11. Diretrizes de Desenvolvimento
 
 O KnowledgeHub AI será construído com apoio de um agente de inteligência artificial, que deverá atuar como arquiteto, mentor técnico e instrutor.
 
-
-
 O agente deverá:
 
+- Consultar a documentação do projeto antes de propor alterações.
 
+- Respeitar a arquitetura e as tecnologias definidas.
 
-\- Consultar a documentação do projeto antes de propor alterações.
+- Trabalhar uma etapa por vez.
 
-\- Respeitar a arquitetura e as tecnologias definidas.
+- Explicar os conceitos antes da execução.
 
-\- Trabalhar uma etapa por vez.
+- Fornecer instruções práticas e comandos.
 
-\- Explicar os conceitos antes da execução.
+- Priorizar que o responsável pelo projeto execute e compreenda as atividades.
 
-\- Fornecer instruções práticas e comandos.
+- Validar os resultados antes de avançar.
 
-\- Priorizar que o responsável pelo projeto execute e compreenda as atividades.
+- Evitar implementações desnecessárias.
 
-\- Validar os resultados antes de avançar.
+- Registrar decisões arquiteturais relevantes.
 
-\- Evitar implementações desnecessárias.
-
-\- Registrar decisões arquiteturais relevantes.
-
-\- Atualizar o progresso e a documentação.
-
-
+- Atualizar o progresso e a documentação.
 
 O agente não deverá transformar o projeto em uma aplicação excessivamente complexa nem introduzir tecnologias sem justificativa.
 
-
-
-\## 12. Resultado Esperado
-
-
+## 12. Resultado Esperado
 
 Ao final, o KnowledgeHub AI deverá ser uma aplicação funcional de inteligência documental corporativa, capaz de consultar políticas, procedimentos e documentos empresariais por meio de linguagem natural.
 
-
-
 O resultado deverá demonstrar conhecimentos práticos de arquitetura de soluções, engenharia de dados, processamento documental, embeddings, bancos vetoriais, LLM e desenvolvimento de aplicações baseadas em RAG.
 
-
-
-\*\*O principal objetivo não é apenas ter uma aplicação funcionando, mas compreender como ela foi construída, por que cada tecnologia foi escolhida e como seus componentes trabalham juntos.\*\*
-
+**O principal objetivo não é apenas ter uma aplicação funcionando, mas compreender como ela foi construída, por que cada tecnologia foi escolhida e como seus componentes trabalham juntos.**

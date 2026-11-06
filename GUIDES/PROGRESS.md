@@ -6,8 +6,6 @@
 * **Última Atualização:** 05/11/2026.
 * **Sprint Atual:** Conclusão do MVP & Validação E2E.
 
----
-
 ## 2. Histórico de Entregas Realizadas
 
 ### Sprint 1 — Preparação Documental e Planejamento
@@ -34,21 +32,17 @@
 * [x] **Fase 6:** Interface web interativa construída em Streamlit com suporte a seleção de $Top-K$, monitoramento de status de saúde e renderização de cartões de evidência.
 * [x] **Fase 7:** Correção de alinhamento de diretórios absolutos (`__file__`), testes de integração de ponta a ponta (E2E) e validação final da persistência do log no PostgreSQL.
 
----
-
 ## 3. Matriz de Acompanhamento do `IMPLEMENTATION-PLAN.md`
 
 | Fase | Descrição | Status | Data de Conclusão |
 | :--- | :--- | :---: | :---: |
-| **Fase 1** | Setup do Ambiente & Estrutura Backend | 🟢 **Concluída** | 04/11/2026 |
-| **Fase 2** | Processamento de PDF & Chunking Estruturado | 🟢 **Concluída** | 05/11/2026 |
-| **Fase 3** | Embeddings Locais & Banco Vetorial ChromaDB | 🟢 **Concluída** | 05/11/2026 |
-| **Fase 4** | Persistência Relacional de Metadados (PostgreSQL) | 🟢 **Concluída** | 05/11/2026 |
-| **Fase 5** | Pipeline RAG & Integração com Gemini API | 🟢 **Concluída** | 05/11/2026 |
-| **Fase 6** | Interface Web (Streamlit Dashboard & Chat) | 🟢 **Concluída** | 05/11/2026 |
-| **Fase 7** | Testes, Validação Final & Portfólio | 🟢 **Concluída** | 05/11/2026 |
-
----
+| **Fase 1** | Setup do Ambiente & Estrutura Backend | **Concluída** | 04/11/2026 |
+| **Fase 2** | Processamento de PDF & Chunking Estruturado | **Concluída** | 05/11/2026 |
+| **Fase 3** | Embeddings Locais & Banco Vetorial ChromaDB | **Concluída** | 05/11/2026 |
+| **Fase 4** | Persistência Relacional de Metadados (PostgreSQL) | **Concluída** | 05/11/2026 |
+| **Fase 5** | Pipeline RAG & Integração com Gemini API | **Concluída** | 05/11/2026 |
+| **Fase 6** | Interface Web (Streamlit Dashboard & Chat) | **Concluída** | 05/11/2026 |
+| **Fase 7** | Testes, Validação Final & Portfólio | **Concluída** | 05/11/2026 |
 
 ## 4. Próximos Passos Sugeridos (Evoluções Futuras)
 
