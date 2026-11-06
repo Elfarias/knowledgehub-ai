@@ -2,15 +2,11 @@
 
 > **Plataforma open-source de inteligência documental corporativa baseada em RAG (Retrieval-Augmented Generation), projetada para consulta em linguagem natural com rastreabilidade total de evidências.**
 
----
-
 ## 📌 Visão Geral do Projeto
 
 O **KnowledgeHub AI** foi desenvolvido para resolver o desafio corporativo de localização rápida e precisa de informações em bases documentais extensas. O sistema extrai e indexa políticas, manuais e procedimentos internos de uma empresa fictícia (*ABC Indústria e Serviços Ltda.*), permitindo que colaboradores tirem dúvidas em linguagem natural.
 
 Diferente de sistemas convencionais de chat sobre PDFs, o KnowledgeHub AI prioriza a **rastreabilidade e a transparência**: toda resposta gerada apresenta as **fontes exatas**, indicando o nome do documento original, o número da página e o trecho de evidência utilizado.
-
----
 
 ## 🏗️ Arquitetura da Solução
 
@@ -71,21 +67,17 @@ flowchart TD
     class LLM llmStyle;
 ```
 
----
-
 ## 🛠️ Stack Tecnológica
 
-| Camada | Tecnologia | Função no Sistema |
-| :--- | :--- | :--- |
-| **Backend & API** | Python 3.12 + FastAPI | API RESTful assíncrona responsável pela orquestração do pipeline RAG. |
-| **Frontend Web** | Streamlit | Interface interativa de chat com painel de métricas e suporte a $Top-K$. |
-| **Banco Vetorial** | ChromaDB (Local/Embedded) | Armazenamento persistente de embeddings e busca por similaridade de cosseno. |
-| **Embeddings** | `intfloat/multilingual-e5-large` | Modelo aberto de 1024 dimensões executado 100% localmente via PyTorch. |
-| **Provedor LLM** | Google Gemini API | Geração de respostas sintetizadas fundamentadas no contexto fornecido. |
-| **Banco Relacional** | PostgreSQL 16 | Auditoria assíncrona e registro de logs de consultas. |
-| **Processamento PDF** | PyMuPDF (`fitz`) | Extração estruturada de texto com rastreabilidade por número de página. |
-
----
+| Camada | Tecnologia | Função no Sistema | 
+| ----- | ----- | ----- | 
+| **Backend & API** | Python 3.12 + FastAPI | API RESTful assíncrona responsável pela orquestração do pipeline RAG. | 
+| **Frontend Web** | Streamlit | Interface interativa de chat com painel de métricas e suporte a $Top-K$. | 
+| **Banco Vetorial** | ChromaDB (Local/Embedded) | Armazenamento persistente de embeddings e busca por similaridade de cosseno. | 
+| **Embeddings** | `intfloat/multilingual-e5-large` | Modelo aberto de 1024 dimensões executado 100% localmente via PyTorch. | 
+| **Provedor LLM** | Google Gemini API | Geração de respostas sintetizadas fundamentadas no contexto fornecido. | 
+| **Banco Relacional** | PostgreSQL 16 | Auditoria assíncrona e registro de logs de consultas. | 
+| **Processamento PDF** | PyMuPDF (`fitz`) | Extração estruturada de texto com rastreabilidade por número de página. | 
 
 ## ☁️ Execução Instantânea via GitHub Codespaces
 
@@ -96,22 +88,19 @@ Para experimentar o projeto imediatamente sem a necessidade de instalar Python, 
 3. Defina sua variável `GEMINI_API_KEY` no terminal ou arquivo `.env`.
 4. As portas **8000** (API FastAPI) e **8501** (Interface Streamlit) serão abertas automaticamente para acesso no navegador.
 
----
-
 ## 🗺️ Guia Sequencial de Construção por Fases (`GUIDES/`)
 
 Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo de construção do KnowledgeHub AI, cada etapa do MVP foi documentada em detalhes na pasta `GUIDES/`:
 
-| Fase | Descrição da Etapa | Documento de Guia Passo a Passo | Status |
-| :---: | :--- | :--- | :---: |
-| **01** | Setup do Ambiente, Infraestrutura & Backend | 📜 [**PROJECT.md**](GUIDES/PROJECT.md) & ⚙️ [**TECHNOLOGY_STACK.md**](GUIDES/TECHNOLOGY_STACK.md) | 🟢 Concluída |
-| **02** | Ingestão, Extração de PDFs & Chunking | 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) | 🟢 Concluída |
-| **03** | Embeddings Locais & Motor de Recuperação | 🔍 [**Fase 3 — Motor de Recuperação**](GUIDES/PHASE-3-RETRIEVAL.md) | 🟢 Concluída |
-| **04** | Pipeline RAG & Integração LLM Gemini | 🤖 [**Geração RAG com Google Gemini**](GUIDES/Geração%20RAG%20com%20Google%20Gemini.md) | 🟢 Concluída |
-| **05** | Exposição via FastAPI Production-Grade | ⚡ [**Resumo de Execução - Fase 5: FastAPI**](GUIDES/PHASE_5_FastAPI.md) | 🟢 Concluída |
-| **06 & 07** | Interface Web (Streamlit) & Validação E2E | 🖥️ [**Fase 6 & 7 — Interface Web e Validação E2E**](GUIDES/PHASE%206_7.MD) | 🟢 Concluída |
-
----
+| Fase | Descrição da Etapa | Documento de Guia Passo a Passo | Status | 
+| ----- | ----- | ----- | ----- | 
+| **01** | Setup do Ambiente, Infraestrutura & Backend | 📜 [**PROJECT.md**](GUIDES/PROJECT.md) & ⚙️ [**TECHNOLOGY_STACK.md**](GUIDES/TECHNOLOGY_STACK.md) | 🟢 Concluída | 
+| **02** | Ingestão, Extração de PDFs & Chunking | 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) | 🟢 Concluída | 
+| **03** | Embeddings Locais & Motor de Recuperação | 🔍 [**Fase 3 — Motor de Recuperação**](GUIDES/PHASE-3-RETRIEVAL.md) | 🟢 Concluída | 
+| **04** | Pipeline RAG & Integração LLM Gemini | 🤖 [**Geração RAG com Google Gemini**](GUIDES/Geração%20RAG%20com%20Google%20Gemini.md) | 🟢 Concluída | 
+| **05** | Exposição via FastAPI Production-Grade | ⚡ [**Resumo de Execução - Fase 5: FastAPI**](GUIDES/PHASE_5_FastAPI.md) | 🟢 Concluída | 
+| **06 & 07** | Interface Web (Streamlit) & Validação E2E | 🖥️ [**Fase 6 & 7 — Interface Web e Validação E2E**](GUIDES/PHASE%206_7.MD) | 🟢 Concluída | 
+| **FASE 2** | Roadmap de RAG Avançado & Avaliação Corporativa | 🗺️ [**Roadmap de Implantação - Fase 2**](GUIDES/ROADMAP_PHASE_2.md) | 🟡 Em Planejamento |
 
 ## 🚀 Como Executar Localmente (Quick Start)
 
@@ -121,7 +110,7 @@ Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo
 * Chave de API do Google Gemini (`GEMINI_API_KEY`).
 
 ### 2. Clonar o Repositório e Configurar o Ambiente Virtual
-```powershell
+```bash
 git clone https://github.com/SEU_USUARIO/knowledgehub-ai.git
 cd knowledgehub-ai
 
@@ -141,45 +130,42 @@ DATABASE_URL=postgresql://postgres:postgres@localhost:5432/knowledgehub
 ```
 
 ### 4. Inicializar Serviços (Ordem Recomendada)
-
 Execute os seguintes comandos em terminais distintos:
 
 * **Terminal 1 — Banco de Dados (PostgreSQL):**
-  ```powershell
+  ```bash
   docker compose up -d
   ```
 
 * **Terminal 2 — Processamento de Ingestão (Popular ChromaDB com os PDFs de `Docs/`):**
-  ```powershell
+  ```bash
   cd backend
   python ingest.py
   ```
 
 * **Terminal 3 — Servidor API Backend (FastAPI):**
-  ```powershell
+  ```bash
   cd backend
   uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
   ```
 
 * **Terminal 4 — Interface Web (Streamlit):**
-  ```powershell
+  ```bash
   streamlit run frontend/app.py
   ```
 
 Acesse a interface no seu navegador em: **`http://localhost:8501`**
 
----
+## 🔮 Próximos Passos (Roadmap de Evolução — Fase 2)
 
-## 🔮 Próximos Passos (Roadmap de Evolução)
+Com a entrega do MVP funcional da Fase 1, a próxima etapa de desenvolvimento está detalhada no [**Roadmap de Implantação — Fase 2**](GUIDES/ROADMAP_PHASE_2.md), englobando as seguintes evoluções de engenharia:
 
-Com a primeira fase do MVP totalmente finalizada e validada, o projeto conta com o seguinte roadmap para as próximas versões:
+1. **Busca Híbrida (Dense + Sparse Retrieval):** Combinação do motor vetorial ChromaDB com busca por palavras-chave via **BM25** e fusão por *Reciprocal Rank Fusion (RRF)* para garantir recuperação exata de códigos e siglas corporativas.
+2. **Filtros Dinâmicos por Metadados:** Filtragem pré-busca por departamento (ex: `RH`, `Financeiro`, `Jurídico`) garantindo isolamento de contexto.
+3. **Avaliação Automatizada (*LLM as a Judge* / *Ragas*):** Criação de dataset de teste de referência (*Gold Standard*) para medição contínua de fidelidade (*faithfulness*), relevância (*answer relevance*) e precisão de contexto.
+4. **Auto-Correção e Fallback (Self-Corrective RAG):** Verificação de limiares de relevância para acionamento de guardrails quando a base documental não contiver a resposta desejada.
 
-1. **Busca Híbrida (Dense + Sparse Retrieval):** Combinação do motor vetorial ChromaDB com busca por palavra-chave via **BM25**, aprimorando a recuperação de códigos de políticas e termos técnicos precisos.
-2. **Filtros Dinâmicos por Departamento:** Suporte à filtragem pré-busca por metadados de acesso (ex.: limitar consultas apenas a documentos do departamento de `RH` ou `Financeiro`).
-3. **Avaliação Quantitativa RAG (RAG Metrics):** Integração de ferramentas como **Ragas** ou **TruLens** para medição automatizada de fidelidade (*faithfulness*), relevância (*answer relevance*) e precisão do contexto.
-4. **Ingestão Multiformato:** Expansão da pipeline de processamento para documentos `.docx` (Word), `.pptx` (PowerPoint) e tabelas `.xlsx` (Excel).
-
----
+Para conferir o plano detalhado de tarefas, consulte o [**GUIDES/ROADMAP_PHASE_2.md**](GUIDES/ROADMAP_PHASE_2.md).
 
 ## 📚 Documentação Técnica Completa (`GUIDES/`)
 
@@ -189,16 +175,13 @@ Com a primeira fase do MVP totalmente finalizada e validada, o projeto conta com
 * 📊 [**PROGRESS.md**](GUIDES/PROGRESS.md) — Matriz de acompanhamento de progresso e histórico das entregas.
 * 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) — Guia de capacidade e expansão da ingestão multiformato.
 * 🚀 [**Guia de Execução & Troubleshooting**](GUIDES/Guia%20de%20Execução%20%26%20Troubleshooting%20—%20KnowledgeHub%20AI.md) — Resolução detalhada de erros comuns de execução.
-
----
+* 🗺️ [**ROADMAP_PHASE_2.md**](GUIDES/ROADMAP_PHASE_2.md) — Plano de execução auto-contido para a evolução RAG da Fase 2.
 
 ## 👨‍💻 Autor & Desenvolvimento
 
 O **KnowledgeHub AI** foi concebido e implementado por **Elon de Farias Pereira**, com foco em engenharia de software aplicada, clareza arquitetural e domínio sobre o pipeline RAG.
 
 A solução prioriza o controle explícito sobre todas as etapas do fluxo RAG (chunking, vetorização, prompt grounding e rastreabilidade de evidências), evitando dependências de frameworks de alta abstração.
-
----
 
 ## 📄 Licença
 
