@@ -1,11 +1,5 @@
 # 🧠 KnowledgeHub AI — Assistente Corporativo de Conhecimento
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU_USUARIO/knowledgehub-ai)
-![Apache 2.0 License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
-![Python 3.12](https://img.shields.io/badge/Python-3.12-green.svg)
-![FastAPI](https://img.shields.io/badge/FastAPI-Production-009688.svg)
-![Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B.svg)
-
 > **Plataforma open-source de inteligência documental corporativa baseada em RAG (Retrieval-Augmented Generation), projetada para consulta em linguagem natural com rastreabilidade total de evidências.**
 
 ---
@@ -24,37 +18,31 @@ O sistema adota o padrão de **Monólito Modular (Modular Monolith)**, executado
 
 ```mermaid
 flowchart TD
-    classDef userStyle fill:#4A90E2,stroke:#1C5296,stroke-width:2px,color:#fff,font-weight:bold
-    classDef apiStyle fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff,font-weight:bold
-    classDef moduleStyle fill:#FFF3E0,stroke:#E65100,stroke-width:1px,color:#000
-    classDef dataStyle fill:#E1F5FE,stroke:#0288D1,stroke-width:1px,color:#000
-    classDef llmStyle fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff,font-weight:bold
-
-    USER[👤 Usuário / Colaborador] ::: userStyle
+    USER[👤 Usuário / Colaborador]
 
     subgraph APP ["🏢 Ambiente Local (Python / Docker)"]
         direction TB
         FRONT[🖥️ Frontend Web — Streamlit]
-        API[⚡ Backend REST API — FastAPI] ::: apiStyle
+        API[⚡ Backend REST API — FastAPI]
         
         subgraph MODULES ["⚙️ Módulos de Negócio (Backend)"]
             direction LR
-            DOC[📁 Gestão Documental] ::: moduleStyle
-            ING[⚙️ Ingestão & Chunking] ::: moduleStyle
-            RAG[🧠 Motor RAG] ::: moduleStyle
-            CHAT[💬 Chat & Histórico] ::: moduleStyle
+            DOC[📁 Gestão Documental]
+            ING[⚙️ Ingestão & Chunking]
+            RAG[🧠 Motor RAG]
+            CHAT[💬 Chat & Histórico]
         end
         
         subgraph STORAGE ["💾 Persistência & Embeddings"]
             direction LR
-            PG[(🗄️ PostgreSQL\nLogs & Auditoria)] ::: dataStyle
-            CH[(🔍 ChromaDB\nBanco Vetorial)] ::: dataStyle
-            FS[(📄 Filesystem\nPDFs Originais)] ::: dataStyle
-            EMB[🔤 Embeddings\nmultilingual-e5-large] ::: dataStyle
+            PG[(🗄️ PostgreSQL<br/>Logs & Auditoria)]
+            CH[(🔍 ChromaDB<br/>Banco Vetorial)]
+            FS[(📄 Filesystem<br/>PDFs Originais)]
+            EMB[🔤 Embeddings<br/>multilingual-e5-large]
         end
     end
 
-    LLM[🤖 Google Gemini API\nProvedor LLM] ::: llmStyle
+    LLM[🤖 Google Gemini API<br/>Provedor LLM]
 
     USER <--> FRONT
     FRONT <--> API
@@ -69,6 +57,18 @@ flowchart TD
 
     CHAT --> PG
     CHAT --> RAG
+
+    classDef userStyle fill:#4A90E2,stroke:#1C5296,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef apiStyle fill:#2E7D32,stroke:#1B5E20,stroke-width:2px,color:#fff,font-weight:bold;
+    classDef moduleStyle fill:#FFF3E0,stroke:#E65100,stroke-width:1px,color:#000;
+    classDef dataStyle fill:#E1F5FE,stroke:#0288D1,stroke-width:1px,color:#000;
+    classDef llmStyle fill:#7B1FA2,stroke:#4A148C,stroke-width:2px,color:#fff,font-weight:bold;
+
+    class USER userStyle;
+    class API apiStyle;
+    class DOC,ING,RAG,CHAT moduleStyle;
+    class PG,CH,FS,EMB dataStyle;
+    class LLM llmStyle;
 ```
 
 ---
@@ -91,9 +91,7 @@ flowchart TD
 
 Para experimentar o projeto imediatamente sem a necessidade de instalar Python, Docker ou dependências na sua máquina local, utilize o **GitHub Codespaces**:
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU_USUARIO/knowledgehub-ai)
-
-1. Clique no botão acima para instanciar o ambiente virtual em nuvem.
+1. Instancie o ambiente virtual em nuvem pelo GitHub Codespaces no repositório.
 2. O ambiente configurará automaticamente o contêiner Python 3.12 e instalará os pacotes de `requirements.txt`.
 3. Defina sua variável `GEMINI_API_KEY` no terminal ou arquivo `.env`.
 4. As portas **8000** (API FastAPI) e **8501** (Interface Streamlit) serão abertas automaticamente para acesso no navegador.
