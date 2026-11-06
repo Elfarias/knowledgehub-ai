@@ -1,12 +1,12 @@
 # 🧠 KnowledgeHub AI — Assistente Corporativo de Conhecimento
 
-[!\[Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU_USUARIO/knowledgehub-ai)
+[!\[Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU\_USUARIO/knowledgehub-ai)
 !\[Apache 2.0 License](https://img.shields.io/badge/License-Apache\_2.0-blue.svg)
 !\[Python 3.12](https://img.shields.io/badge/Python-3.12-green.svg)
 !\[FastAPI](https://img.shields.io/badge/FastAPI-Production-009688.svg)
 !\[Streamlit](https://img.shields.io/badge/Streamlit-UI-FF4B4B.svg)
 
-> \*\*Plataforma open-source de inteligência documental corporativa baseada em RAG (Retrieval-Augmented Generation), projetada para consulta em linguagem natural com rastreabilidade total de evidências.\*\*
+> \\\*\\\*Plataforma open-source de inteligência documental corporativa baseada em RAG (Retrieval-Augmented Generation), projetada para consulta em linguagem natural com rastreabilidade total de evidências.\\\*\\\*
 
 \---
 
@@ -24,27 +24,27 @@ O sistema adota o padrão de **Monólito Modular (Modular Monolith)**, executado
 
 ```mermaid
 flowchart TB
-    USER\[Usuário / Colaborador]
+    USER\\\[Usuário / Colaborador]
 
-    subgraph LOCAL\["Ambiente Local (Python / Docker Compose)"]
-        FRONT\[Frontend Web<br/>Streamlit]
-        API\[Backend REST API<br/>FastAPI]
+    subgraph LOCAL\\\["Ambiente Local (Python / Docker Compose)"]
+        FRONT\\\[Frontend Web<br/>Streamlit]
+        API\\\[Backend REST API<br/>FastAPI]
 
-        subgraph MODULES\["Módulos Internos do Backend"]
-            DOC\[Gestão Documental]
-            ING\[Ingestão \& Chunking]
-            RAG\[Motor RAG]
-            CHAT\[Chat \& Histórico]
+        subgraph MODULES\\\["Módulos Internos do Backend"]
+            DOC\\\[Gestão Documental]
+            ING\\\[Ingestão \\\& Chunking]
+            RAG\\\[Motor RAG]
+            CHAT\\\[Chat \\\& Histórico]
         end
 
-        PG\[(PostgreSQL<br/>Logs \& Auditoria)]
-        CH\[(ChromaDB<br/>Banco Vetorial)]
-        FS\[(Filesystem / Docs<br/>Documentos PDF)]
+        PG\\\[(PostgreSQL<br/>Logs \\\& Auditoria)]
+        CH\\\[(ChromaDB<br/>Banco Vetorial)]
+        FS\\\[(Filesystem / Docs<br/>Documentos PDF)]
 
-        EMB\[Modelo de Embeddings<br/>multilingual-e5-large]
+        EMB\\\[Modelo de Embeddings<br/>multilingual-e5-large]
     end
 
-    LLM\[Google Gemini API<br/>LLM Externa]
+    LLM\\\[Google Gemini API<br/>LLM Externa]
 
     USER --> FRONT
     FRONT <-->|HTTP REST| API
@@ -85,11 +85,11 @@ flowchart TB
 
 Para experimentar o projeto imediatamente sem a necessidade de instalar Python, Docker ou dependências na sua máquina local, utilize o **GitHub Codespaces**:
 
-[!\[Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU_USUARIO/knowledgehub-ai)
+[!\[Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/SEU\_USUARIO/knowledgehub-ai)
 
 1. Clique no botão acima para instanciar o ambiente virtual em nuvem.
 2. O ambiente configurará automaticamente o contêiner Python 3.12 e instalará os pacotes de `requirements.txt`.
-3. Defina sua variável `GEMINI\_API\_KEY` no terminal ou arquivo `.env`.
+3. Defina sua variável `GEMINI\\\_API\\\_KEY` no terminal ou arquivo `.env`.
 4. As portas **8000** (API FastAPI) e **8501** (Interface Streamlit) serão abertas automaticamente para acesso no navegador.
 
 \---
@@ -115,17 +115,17 @@ Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo
 
 * Python 3.11 ou 3.12 instalado.
 * Docker Desktop ativo (para o PostgreSQL).
-* Chave de API do Google Gemini (`GEMINI\_API\_KEY`).
+* Chave de API do Google Gemini (`GEMINI\\\_API\\\_KEY`).
 
 ### 2\. Clonar o Repositório e Configurar o Ambiente Virtual
 
 ```powershell
-git clone https://github.com/SEU\_USUARIO/knowledgehub-ai.git
+git clone https://github.com/SEU\\\_USUARIO/knowledgehub-ai.git
 cd knowledgehub-ai
 
 # Criar e ativar o ambiente virtual (Windows PowerShell)
 python -m venv venv
-.\\venv\\Scripts\\Activate.ps1
+.\\\\venv\\\\Scripts\\\\Activate.ps1
 
 # Instalar dependências
 pip install -r backend/requirements.txt
@@ -136,8 +136,8 @@ pip install -r backend/requirements.txt
 Crie um arquivo `.env` na raiz do projeto a partir do modelo `.env.example`:
 
 ```env
-GEMINI\_API\_KEY=sua\_chave\_api\_aqui
-DATABASE\_URL=postgresql://postgres:postgres@localhost:5432/knowledgehub
+GEMINI\\\_API\\\_KEY=sua\\\_chave\\\_api\\\_aqui
+DATABASE\\\_URL=postgresql://postgres:postgres@localhost:5432/knowledgehub
 ```
 
 ### 4\. Inicializar Serviços (Ordem Recomendada)
@@ -202,8 +202,8 @@ Este projeto foi concebido, arquitetado e desenvolvido de forma autônoma por **
 
 A construção seguiu deliberadamente o princípio de **código aberto e sem frameworks de abstração de alto nível**, permitindo o controle exato sobre chunking, vetorização, prompt grounding e rastreabilidade de evidências.
 
-[!\[LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge\&logo=linkedin\&logoColor=white)](https://linkedin.com/in/SEU_LINKEDIN)
-[!\[GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge\&logo=github\&logoColor=white)](https://github.com/SEU_USUARIO)
+[!\[LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]https://www.linkedin.com/in/elonfarias/
+[!\[GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)]https://github.com/Elfarias
 
 \---
 
