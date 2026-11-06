@@ -100,7 +100,7 @@ Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo
 | **04** | Pipeline RAG & Integração LLM Gemini | 🤖 [**Geração RAG com Google Gemini**](GUIDES/Geração%20RAG%20com%20Google%20Gemini.md) | 🟢 Concluída | 
 | **05** | Exposição via FastAPI Production-Grade | ⚡ [**Resumo de Execução - Fase 5: FastAPI**](GUIDES/PHASE_5_FastAPI.md) | 🟢 Concluída | 
 | **06 & 07** | Interface Web (Streamlit) & Validação E2E | 🖥️ [**Fase 6 & 7 — Interface Web e Validação E2E**](GUIDES/PHASE%206_7.MD) | 🟢 Concluída | 
-| **FASE 2** | Roadmap de RAG Avançado & Avaliação Corporativa | 🗺️ [**Roadmap de Implantação - Fase 2**](GUIDES/ROADMAP_PHASE_2.md) | 🟡 Em Planejamento |
+| **FASE 2** | Roadmap de RAG Avançado & Avaliação Corporativa | 🗺️ [**Fase 2 - RAG Avaliacao Corporativa**](GUIDES/Fase%202%20-%20RAG%20Avaliacao%20Corporativa.md) | 🟡 Em Planejamento |
 
 ## 🚀 Como Executar Localmente (Quick Start)
 
@@ -158,14 +158,14 @@ Acesse a interface no seu navegador em: **`http://localhost:8501`**
 
 ## 🔮 Próximos Passos (Roadmap de Evolução — Fase 2)
 
-Com a entrega do MVP funcional da Fase 1, a próxima etapa de desenvolvimento está detalhada no [**Roadmap de Implantação — Fase 2**](GUIDES/ROADMAP_PHASE_2.md), englobando as seguintes evoluções de engenharia:
+Com a entrega do MVP funcional da Fase 1, a próxima etapa de desenvolvimento está detalhada no [**Fase 2 - RAG Avaliacao Corporativa.md**](GUIDES/Fase%202%20-%20RAG%20Avaliacao%20Corporativa.md), englobando as seguintes evoluções de engenharia:
 
 1. **Busca Híbrida (Dense + Sparse Retrieval):** Combinação do motor vetorial ChromaDB com busca por palavras-chave via **BM25** e fusão por *Reciprocal Rank Fusion (RRF)* para garantir recuperação exata de códigos e siglas corporativas.
 2. **Filtros Dinâmicos por Metadados:** Filtragem pré-busca por departamento (ex: `RH`, `Financeiro`, `Jurídico`) garantindo isolamento de contexto.
 3. **Avaliação Automatizada (*LLM as a Judge* / *Ragas*):** Criação de dataset de teste de referência (*Gold Standard*) para medição contínua de fidelidade (*faithfulness*), relevância (*answer relevance*) e precisão de contexto.
 4. **Auto-Correção e Fallback (Self-Corrective RAG):** Verificação de limiares de relevância para acionamento de guardrails quando a base documental não contiver a resposta desejada.
 
-Para conferir o plano detalhado de tarefas, consulte o [**GUIDES/ROADMAP_PHASE_2.md**](GUIDES/ROADMAP_PHASE_2.md).
+Para conferir o plano detalhado de tarefas, consulte o [**GUIDES/Fase 2 - RAG Avaliacao Corporativa.md**](GUIDES/Fase%202%20-%20RAG%20Avaliacao%20Corporativa.md).
 
 ## 📚 Documentação Técnica Completa (`GUIDES/`)
 
@@ -175,7 +175,7 @@ Para conferir o plano detalhado de tarefas, consulte o [**GUIDES/ROADMAP_PHASE_2
 * 📊 [**PROGRESS.md**](GUIDES/PROGRESS.md) — Matriz de acompanhamento de progresso e histórico das entregas.
 * 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) — Guia de capacidade e expansão da ingestão multiformato.
 * 🚀 [**Guia de Execução & Troubleshooting**](GUIDES/Guia%20de%20Execução%20%26%20Troubleshooting%20—%20KnowledgeHub%20AI.md) — Resolução detalhada de erros comuns de execução.
-* 🗺️ [**ROADMAP_PHASE_2.md**](GUIDES/ROADMAP_PHASE_2.md) — Plano de execução auto-contido para a evolução RAG da Fase 2.
+* 🗺️ [**Fase 2 - RAG Avaliacao Corporativa.md**](GUIDES/Fase%202%20-%20RAG%20Avaliacao%20Corporativa.md) — Plano de execução auto-contido para a evolução RAG da Fase 2.
 
 ## 👨‍💻 Autor & Desenvolvimento
 
