@@ -102,7 +102,7 @@ Para desenvolvedores e entusiastas que desejam entender ou reproduzir o processo
 | :---: | :--- | :--- | :---: |
 | **01** | Setup do Ambiente, Infraestrutura & Backend | 📜 [**PROJECT.md**](GUIDES/PROJECT.md) & ⚙️ [**TECHNOLOGY_STACK.md**](GUIDES/TECHNOLOGY_STACK.md) | 🟢 Concluída |
 | **02** | Ingestão, Extração de PDFs & Chunking | 📑 [**DOCUMENT_PROCESSING.md**](GUIDES/DOCUMENT_PROCESSING.md) | 🟢 Concluída |
-| **03** | Embeddings Locais & Motor de Recuperação | 🔍 [**Fase 3 — Motor de Recuperação**](GUIDES/Fase%203%20—%20Motor%20de%20Recuperação%20(Retrieval).txt) | 🟢 Concluída |
+| **03** | Embeddings Locais & Motor de Recuperação | 🔍 [**Fase 3 — Motor de Recuperação**](GUIDES/PHASE-3-RETRIEVAL.md) | 🟢 Concluída |
 | **04** | Pipeline RAG & Integração LLM Gemini | 🤖 [**Geração RAG com Google Gemini**](GUIDES/Geração%20RAG%20com%20Google%20Gemini.md) | 🟢 Concluída |
 | **05** | Exposição via FastAPI Production-Grade | ⚡ [**Resumo de Execução - Fase 5: FastAPI**](GUIDES/PHASE_5_FastAPI.md) | 🟢 Concluída |
 | **06 & 07** | Interface Web (Streamlit) & Validação E2E | 🖥️ [**Fase 6 & 7 — Interface Web e Validação E2E**](GUIDES/PHASE%206_7.MD) | 🟢 Concluída |
